@@ -32,21 +32,21 @@ public class RideAppTest {
             .andReturn();
   }
 
-  // @Test
-  // public void getRide() throws Exception {
-  //   mockMvc.perform(MockMvcRequestBuilders.get("/themepark/ride/1")
-  //           .accept(MediaType.APPLICATION_JSON))
-  //           .andExpect(status().isOk())
-  //           .andReturn();
-  // }
-  //
-  // @Test
-  // public void returnHttpNotFoundForInvalidRideId() throws Exception {
-  //   mockMvc.perform(MockMvcRequestBuilders.get("/themepark/ride/6")
-  //           .accept(MediaType.APPLICATION_JSON))
-  //           .andExpect(status().isNotFound())
-  //           .andReturn();
-  // }
+  @Test
+  public void getRide() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.get("/themepark/ride/1")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn();
+  }
+  
+  @Test
+  public void returnHttpNotFoundForInvalidRideId() throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.get("/themepark/ride/6")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andReturn();
+  }
 
   @Test
   public void addNewRide() throws Exception {
