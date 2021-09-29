@@ -48,14 +48,11 @@ public class ThemeParkRideController {
     @GetMapping("/ride/{id}")
     public ResponseEntity<?> getRide(@PathVariable long id) {
       Optional<ThemeParkRide> result = repository.findById(id);
-      // TODO fix below code section
-      if(result.isEmpty())
+
+      if(!result.isEmpty())
         return ResponseEntity.ok(result);
       else
-        // return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        //                       .body(String.format("Invalid ride id %s", id));
         return ResponseEntity.notFound().build();
-                              
     }
 
     /**
