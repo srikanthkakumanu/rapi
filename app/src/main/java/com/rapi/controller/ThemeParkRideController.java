@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -74,6 +76,28 @@ public class ThemeParkRideController {
       return ResponseEntity.created(location).build();
     }
 
+    /**
+     * Update ride description
+     */
+    @PatchMapping("/ride/{id}")
+    public ResponseEntity<ThemeParkRide> updateDescription(@PathVariable long id, @Valid @RequestBody ThemeParkRide ride) {
+      Optional<ThemeParkRide> op = repository.findById(id);
+      ThemeParkRide result;
+
+      if(op.isPresent())
+        result = op.get();
+      else
+        return ResponseEntity.notFound().build();
+      
+      result.setDescription(ride.getDescription());
+      result.setModified(LocalDateTime.now());
+      repository.save(result);
+      
+      URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                                .buildAndExpand(result.getId())
+                                                .toUri();
+      return ResponseEntity.ok().header("Location", location.toString()).build();
+    }
     /**
      * Deletes a ride by id which is passed as path variable
      * @param id ride id

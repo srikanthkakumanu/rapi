@@ -1,5 +1,6 @@
 package com.rapi.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -13,9 +14,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Getter
-@ToString
-@NoArgsConstructor
+@Data
 public class ThemeParkRide {
 
   @Id
@@ -33,7 +32,14 @@ public class ThemeParkRide {
   private LocalDateTime created = LocalDateTime.now();
   private LocalDateTime modified = LocalDateTime.now();
 
+  public ThemeParkRide() { 
+    LocalDateTime date = LocalDateTime.now();
+    this.created = date;
+    this.modified = date;
+  }
+
   public ThemeParkRide(String name, String description, int thrillFactor, int vomitFactor) {
+    this();
     this.name = name;
     this.description = description;
     this.thrillFactor = thrillFactor;
