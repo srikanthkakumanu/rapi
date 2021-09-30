@@ -48,5 +48,7 @@ To push the docker image to DockerHub: `./gradlew dockerPush`
 
 4. Build the micro-service in Jenkins itself:
 
+Create DockerHub username & password in Jenkins Credentails section with 'docker-hub' ID
+Run bootstrap-jenkins project: `./gradlew docker dockerRun`
 
 
