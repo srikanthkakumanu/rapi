@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'RAPI'
-include('app')
+//include('app')
