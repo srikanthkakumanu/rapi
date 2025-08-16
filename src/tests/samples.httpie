@@ -1,0 +1,3 @@
+http -v POST http://localhost:3333/api/auth/register email="test@test.com" password="password123"
+http -v POST http://localhost:3333/api/auth/login email="test@test.com" password="password123"
+http -v GET http://localhost:3333/api/todos

@@ -1,0 +1,47 @@
+{
+  "name": "rapi",
+  "version": "1.0.0",
+  "description": "A simple REST API",
+  "keywords": [
+    "Node.js",
+    "Express.js",
+    "Morgan",
+    "Crypto",
+    "Javascript",
+    "Microservices",
+    "Architecture",
+    "REST",
+    "API",
+    "Neon",
+    "PostgreSQL"
+  ],
+  "homepage": "https://github.com/srikanthkakumanu/rapi#readme",
+  "bugs": {
+    "url": "https://github.com/srikanthkakumanu/rapi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srikanthkakumanu/rapi.git"
+  },
+  "license": "MIT",
+  "author": "Srikanth Kakumanu",
+  "type": "commonjs",
+  "main": "src/api.js",
+  "scripts": {
+    "test": "test",
+    "start": "node src/api.js",
+    "dev": "node --watch src/api.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "joi": "^18.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
