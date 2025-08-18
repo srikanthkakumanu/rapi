@@ -1,11 +1,18 @@
+// Load environment variables from .env file.
+// This must be done before any other imports to ensure
+// environment variables are available globally.
+require('dotenv').config();
+
+// Initialize OpenTelemetry. This must be the first import.
+require('./config/opentelemetry');
+
 const express = require('express');
-const morgan = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
 const todoRoutes = require('./routes/todoRoutes');
 const authRoutes = require('./routes/authRoutes');
+const healthRoutes = require('./routes/healthRoutes');
 const errorMiddleware = require('./middleware/errorMiddleware');
-require('dotenv').config();
 const logger = require('./utils/logger');
 const cors = require('cors');
 const app = express();
@@ -15,22 +22,24 @@ const PORT = process.env.PORT || 3333;
 app.use(cors());
 app.use(express.json());
 
-// Configure morgan to stream request logs through our custom logger
-const morganStream = {
-  write: (message) => {
-    // Morgan adds a newline, so we trim it to avoid extra lines in the log.
-    logger.info(message.trim());
-  },
-};
+// HTTP request logging middleware. Replaces morgan.
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    const message = `${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms - ${req.headers['user-agent']}`;
+    logger.http(message);
+  });
+  next();
+});
 
-// Use the 'combined' format for detailed, production-ready logs
-app.use(morgan('combined', { stream: morganStream }));
 // Swagger Docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use('/api/todos', todoRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/rapi/todos', todoRoutes);
+app.use('/rapi/auth', authRoutes);
+app.use('/rapi', healthRoutes);
 
 // Error Handler
 app.use(errorMiddleware);
@@ -41,7 +50,7 @@ const startServer = async () => {
       logger.info(`RAPI Server is running on port ${PORT}`);
     });
   } catch (err) {
-    console.error('Failed to start RAPI server:', err);
+    logger.error('Failed to start RAPI server:', err);
     process.exit(1);
   }
 };

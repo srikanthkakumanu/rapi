@@ -1,50 +1,75 @@
 // utils/logger.js
-const fs = require('fs');
+const winston = require('winston');
 const path = require('path');
-const util = require('util');
 
 // Define log directory and file path
 const logDir = path.join(__dirname, '../../logs');
-const logFilePath = path.join(logDir, 'app.log');
 
-// Ensure log directory exists. This is a one-time synchronous operation.
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir, { recursive: true });
-}
-
-// Create a writable stream to the log file for efficiency.
-const logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-
-const getTimestamp = () => new Date().toISOString();
-
-// Helper to format messages, including objects/arrays, for file logging.
-const formatForFile = (level, message, args) => {
-  const formattedArgs = args
-    .map((arg) => (typeof arg === 'object' ? util.inspect(arg, { depth: null }) : arg))
-    .join(' ');
-  return `[${level}] ${getTimestamp()}: ${message} ${formattedArgs}\n`;
+// Define custom log levels
+const levels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  http: 3,
+  debug: 4,
 };
 
-const logger = {
-  info: (message, ...args) => {
-    logStream.write(formatForFile('INFO', message, args));
-    console.log(`[INFO] ${getTimestamp()}:`, message, ...args);
-  },
-  warn: (message, ...args) => {
-    logStream.write(formatForFile('WARN', message, args));
-    console.warn(`[WARN] ${getTimestamp()}:`, message, ...args);
-  },
-  error: (message, ...args) => {
-    logStream.write(formatForFile('ERROR', message, args));
-    console.error(`[ERROR] ${getTimestamp()}:`, message, ...args);
-  },
-  debug: (message, ...args) => {
-    // Only log debug messages if not in production
-    if (process.env.NODE_ENV !== 'production') {
-      logStream.write(formatForFile('DEBUG', message, args));
-      console.log(`[DEBUG] ${getTimestamp()}:`, message, ...args);
-    }
-  },
+// Set severity based on the environment
+const level = () => {
+  const env = process.env.NODE_ENV || 'development';
+  return env === 'development' ? 'debug' : 'warn';
 };
+
+// Define colors for each level
+const colors = {
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  http: 'magenta',
+  debug: 'white',
+};
+
+winston.addColors(colors);
+
+// Define format for logging to files
+const fileFormat = winston.format.combine(
+  // When OpenTelemetry is enabled, it will automatically inject
+  // trace_id and span_id into the log metadata.
+  // The json() format will then serialize this into the log file.
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+  winston.format.splat(),
+  winston.format.errors({ stack: true }),
+  winston.format.json()
+);
+
+// Define format for logging to the console
+const consoleFormat = winston.format.combine(
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+  winston.format.colorize({ all: true }),
+  // The console logger remains human-readable and does not show OTel context.
+  winston.format.printf(
+    (info) => `${info.timestamp} ${info.level}: ${info.message}`
+  )
+);
+
+// Define transports
+const transports = [
+  new winston.transports.Console({ format: consoleFormat }),
+  new winston.transports.File({
+    filename: path.join(logDir, 'error.log'),
+    level: 'error',
+    format: fileFormat,
+  }),
+  new winston.transports.File({
+    filename: path.join(logDir, 'app.log'),
+    format: fileFormat,
+  }),
+];
+
+const logger = winston.createLogger({
+  level: level(),
+  levels,
+  transports,
+});
 
 module.exports = logger;

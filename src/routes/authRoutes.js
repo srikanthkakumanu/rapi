@@ -17,7 +17,7 @@ const {
 
 /**
  * @swagger
- * /api/auth/register:
+ * /rapi/auth/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Authentication]
@@ -49,7 +49,7 @@ router.post('/register', validate(registerSchema), authController.register);
 
 /**
  * @swagger
- * /api/auth/login:
+ * /rapi/auth/login:
  *   post:
  *     summary: Log in a user and get a JWT
  *     tags: [Authentication]
