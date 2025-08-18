@@ -36,3 +36,15 @@ OTEL_EXPORTER_ZIPKIN_ENDPOINT="http://localhost:9411/api/v2/spans" # Enables Zip
 ## Running zipkin locally with Docker
 
 `bash docker run -d -p 9411:9411 openzipkin/zipkin`
+
+## .env
+
+```properties
+PORT=3333
+NEON_DB_URL=<Neon DB URL>
+JWT_SECRET=srikanth
+NEW_RELIC_LICENSE_KEY=<New Relic Injest License API Key>
+NEW_RELIC_APP_NAME=rapi
+OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://localhost:9411/api/v2/spans
+NEW_RELIC_OTLP_ENDPOINT=<New Relic OTLP Endpoint>
+```
