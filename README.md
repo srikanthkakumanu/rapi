@@ -1,8 +1,8 @@
-# RAPI
+# TAPI
 
-A simple RESTful API that uses the below mentioned tech stack:
+A simple API (REST & GraphQL) for ToDos that uses the below mentioned tech stack in different code branches:
 
-- **Framework**: Node.js, Express.js
+- **Framework**: Node.js, Express.js, Java, Spring Boot, Spring Boot JPA, Spring HATEOAS, JWT, GitHub Actions, Prisma, Jenkins etc.
 - **Database**: PostgreSQL (via Neon serverless)
 - **Logging**: Winston
 - **Observability**: OpenTelemetry for traces and metrics, with exporters for:
