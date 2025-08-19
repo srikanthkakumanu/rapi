@@ -24,7 +24,7 @@ const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
 const logger = require('../utils/logger');
 
 // --- Configuration ---
-const appName = process.env.NEW_RELIC_APP_NAME || 'rapi';
+const appName = process.env.NEW_RELIC_APP_NAME || 'tapi';
 const isDev = process.env.NODE_ENV === 'development';
 const serviceName = isDev ? `${appName}-dev` : appName;
 const resource = new Resource({
@@ -98,7 +98,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // If no exporters are configured, don't start the SDK.
-if (spanProcessors.length === 0 && !metricReader && logRecordProcessors.length === 0) {
+if (
+  spanProcessors.length === 0 &&
+  !metricReader &&
+  logRecordProcessors.length === 0
+) {
   logger.warn(
     'No OpenTelemetry exporters configured. Tracing, metrics, and logs will be disabled.'
   );

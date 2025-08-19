@@ -1,7 +1,7 @@
 {
-  "name": "rapi",
+  "name": "tapi",
   "version": "1.0.0",
-  "description": "A simple REST API",
+  "description": "A simple API for ToDos",
   "keywords": [
     "Node.js",
     "Express.js",
@@ -15,15 +15,17 @@
     "REST",
     "API",
     "Neon",
-    "PostgreSQL"
+    "PostgreSQL",
+    "Swagger",
+    "New Relic"
   ],
-  "homepage": "https://github.com/srikanthkakumanu/rapi#readme",
+  "homepage": "https://github.com/srikanthkakumanu/tapi#readme",
   "bugs": {
-    "url": "https://github.com/srikanthkakumanu/rapi/issues"
+    "url": "https://github.com/srikanthkakumanu/tapi/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/srikanthkakumanu/rapi.git"
+    "url": "git+https://github.com/srikanthkakumanu/tapi.git"
   },
   "license": "MIT",
   "author": "Srikanth Kakumanu",

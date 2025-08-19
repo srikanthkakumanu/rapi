@@ -12,7 +12,7 @@ const healthController = require('../controllers/healthController');
 
 /**
  * @swagger
- * /rapi/health:
+ * /tapi/health:
  *   get:
  *     summary: Get API health and statistics
  *     tags: [Health]

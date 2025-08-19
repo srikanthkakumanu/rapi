@@ -37,9 +37,9 @@ app.use((req, res, next) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
-app.use('/rapi/todos', todoRoutes);
-app.use('/rapi/auth', authRoutes);
-app.use('/rapi', healthRoutes);
+app.use('/tapi/todos', todoRoutes);
+app.use('/tapi/auth', authRoutes);
+app.use('/tapi', healthRoutes);
 
 // Error Handler
 app.use(errorMiddleware);
@@ -47,10 +47,10 @@ app.use(errorMiddleware);
 const startServer = async () => {
   try {
     app.listen(PORT, () => {
-      logger.info(`RAPI Server is running on port ${PORT}`);
+      logger.info(`TAPI Server is running on port ${PORT}`);
     });
   } catch (err) {
-    logger.error('Failed to start RAPI server:', err);
+    logger.error('Failed to start TAPI server:', err);
     process.exit(1);
   }
 };

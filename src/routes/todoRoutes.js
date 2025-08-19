@@ -11,7 +11,7 @@ const {
 
 /**
  * @swagger
- * /rapi/todos:
+ * /tapi/todos:
  * post:
  * summary: Create a new todo item
  * tags: [Todos]
@@ -47,7 +47,7 @@ router.post(
 
 /**
  * @swagger
- * /rapi/todos/{id}:
+ * /tapi/todos/{id}:
  * get:
  * summary: Get a single todo item
  * tags: [Todos]
@@ -70,7 +70,7 @@ router.get('/:id', authMiddleware, todoController.getTodoById);
 
 /**
  * @swagger
- * /rapi/todos:
+ * /tapi/todos:
  * get:
  * summary: Get all todo items for the authenticated user
  * tags: [Todos]
@@ -86,7 +86,7 @@ router.get('/', authMiddleware, todoController.getAllTodos);
 
 /**
  * @swagger
- * /rapi/todos/{id}:
+ * /tapi/todos/{id}:
  * put:
  * summary: Update a todo item
  * tags: [Todos]
@@ -127,7 +127,7 @@ router.put(
 
 /**
  * @swagger
- * /rapi/todos/{id}:
+ * /tapi/todos/{id}:
  * delete:
  * summary: Delete a todo item
  * tags: [Todos]

@@ -27,7 +27,7 @@ DATABASE_URL="your_neon_database_connection_string"
 JWT_SECRET="your_jwt_secret"
 
 # OpenTelemetry & Exporter Configuration
-NEW_RELIC_APP_NAME="rapi" # In development mode, "-dev" will be appended to this name.
+NEW_RELIC_APP_NAME="tapi" # In development mode, "-dev" will be appended to this name.
 NEW_RELIC_LICENSE_KEY="your_new_relic_license_key" # Enables New Relic exporter
 NEW_RELIC_OTLP_ENDPOINT="https://otlp.eu01.nr-data.net" # Optional: Use "https://otlp.nr-data.net" for US accounts.
 OTEL_EXPORTER_ZIPKIN_ENDPOINT="http://localhost:9411/api/v2/spans" # Enables Zipkin exporter
@@ -43,8 +43,8 @@ OTEL_EXPORTER_ZIPKIN_ENDPOINT="http://localhost:9411/api/v2/spans" # Enables Zip
 PORT=3333
 NEON_DB_URL=<Neon DB URL>
 JWT_SECRET=srikanth
-NEW_RELIC_LICENSE_KEY=<New Relic Injest License API Key>
-NEW_RELIC_APP_NAME=rapi
+NEW_RELIC_LICENSE_KEY=<New Relic Ingest License API Key>
+NEW_RELIC_APP_NAME=tapi
 OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://localhost:9411/api/v2/spans
 NEW_RELIC_OTLP_ENDPOINT=<New Relic OTLP Endpoint>
 ```
