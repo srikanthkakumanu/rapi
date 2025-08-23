@@ -1,6 +1,6 @@
 # TAPI
 
-A simple API (REST & GraphQL) for ToDos that uses the below mentioned tech stack in different code branches:
+This repository contains a simple API (REST & GraphQL) that is developed using polyglot technologies (Java & Node.js) in different code branches for ToDos that uses the below mentioned tech stack in different code branches:
 
 - **Framework**: Node.js, Express.js, Java, Spring Boot, Spring Boot JPA, Spring HATEOAS, JWT, GitHub Actions, Prisma, Jenkins etc.
 - **Database**: PostgreSQL (via Neon serverless)
